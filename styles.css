@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,100;0,300;0,400;0,500;0,800;1,400;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,100;0,300;0,400;0,500;0,800;1,400;1,500;1,700&family=Big+Shoulders+Stencil+Text&display=swap');
+body{
+    font-family: 'Alegreya Sans', sans-serif;
+    background-size: cover;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-image: url('img/Coffee-background.jpg');
+    backdrop-filter: blur(10px);
+}
+
+.main-container{
+    box-shadow: 0px 0px 9px 0px rgba(255,255,255,0.75);
+    border-radius: 10px;
+}
+
+.container-products{
+    height: 440px;
+	overflow-y: auto;
+    overflow-x: hidden;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(img/background.png);
+    backdrop-filter: blur(100px);
+}
+.table-container{
+    box-shadow: 0px 0px 9px 0px rgba(255,255,255,0.75);
+    height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.screen{
+    background-color: black;
+    border-radius: 10px;
+    box-shadow: 1px 1px 9px 1px rgb(9, 53, 0);
+    height: 125px;
+    padding: 5px;
+    font-family: 'Big Shoulders Stencil Text', cursive;
+    color: rgb(0, 255, 0);
+    text-align: right;
+}
+
+.automata{
+    box-shadow: 0px 0px 9px 0px rgba(255,255,255,0.75);
+    height: 310px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-bottom: 10px;
+}
+.visualization{
+    height: 100%;
+    width: 100%;
+}
+
+.btn-coins{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(img/coin.png);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: black;
+    border-radius: 300px;
+    width: 70px;
+    height: 70px;
+}
+.btn-bill{
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: black;
+    background-image: url(img/cash.png);
+    font-weight: 700;
+    font-size: 1.1rem;
+    width: 120px;
+    height: 70px;
+}
+
+::-webkit-scrollbar{
+    width: 6px;
+    height: 7px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-track{
+    -box-shadow: inset 0 0 6px rgba(0,0,0,0.9);
+    border-radius: 10px;
+    background-color: #CCCCCC;
+}
+::-webkit-scrollbar-thumb{
+    background-color:#5e5e5e;
+    
+}
+
+.banner{
+    background: url(img/banner\ machine.jpg) no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 95px;
+    width: 100% ;
+    text-align: center;
+    vertical-align: middle;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
