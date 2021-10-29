@@ -1,4 +1,4 @@
- //#ARREGLO QUE ALAMCENARA LOS DATOS DE LA TRANSICIÓN
+//#ARREGLO QUE ALAMCENARA LOS DATOS DE LA TRANSICIÓN
 var transitions = {};
 //VARIABLE DEL ALFABETO VALIDO
 var alpha = [500,1000,2000,5000];
@@ -12,6 +12,7 @@ var conexions = [];
 var nodes;
 
 $(".pay").prop('disabled', true);
+$("#retirar").prop('disabled', true);
 
 //EVENTO ONCLICK DE LAS MONES Y BILLETES
 $(".pay").on('click', (e)=>{
@@ -19,7 +20,13 @@ $(".pay").on('click', (e)=>{
     changeNode(len);
 })
 
+//EVENTO PARA RETIRAR EL CAFE
+$("#retirar").on('click', (e)=>{
+    retirar();
+});
 
+
+//FUNCION QUE CREA Y RELLENA LA TABLA DE TRANSICIONES
 function createTable(priceProduct){
     pointer = 0;
     $("#table > tbody").empty();
@@ -32,12 +39,10 @@ function createTable(priceProduct){
 
     //#CON ESTE ARREGLO EMPIEZO A CREAR LOS ESTADOS Y SOCIAR LAS TRANSICIONES CON EL LENGUAJE
     for(i = 0; i<=priceProduct; i+=500){
-        var texto = "";
         var datos = [];
         datos.push(i);
         for(j = 0; j< alpha.length;j++){
             if((i+alpha[j]) <= priceProduct){
-                // console.log(`${i} vs ${alpha[j]} == ${(i+alpha[j])}`);
                 datos.push((i+alpha[j]));
             }else{
                 datos.push("---");
@@ -67,7 +72,6 @@ function createTable(priceProduct){
     }
     createAutomata(transitions);
 }
-
 //FUNCION PARA CREAR EL GRAFICO DEL AUTOMATA
 function createAutomata(tableTransition){
     //ARREGLO DE ESTADOS
@@ -201,15 +205,7 @@ function createAutomata(tableTransition){
     changeNode(0);
 }
 
-//FUNCION PARA CANCELAR EL PAGO DE UN PRODUCTO
-function cancelar(){
-    $(".disable").prop('disabled', false);
-    $("#d-price-product").text("$0");
-    $("#d-acumulado").text("$0");
-    $("#table > tbody").empty();
-    $(".pay").prop('disabled', true);
-    $("#visualization").empty();
-}
+//FUNCION QUE PERMITE MOVERSE ENTRE LOS ESTADOS DEL AUTOMATA
 function changeNode(id) {
     //VARIABLE DEL LENGUAJE INGRESADO
     lenguague = id;
@@ -250,13 +246,11 @@ function changeNode(id) {
         validateTransition(id,validStates);
     }
 }
-
+//FUNCION QUE PERMITE VALIDADAR QUE UNA TRANSICION SEA VALIDA EN FUNCION DEL LENGUAJE INGRESADO
 function validateTransition(id,validStates){
     //PUNTERO HACIA DONDE SE MOVERA EL AUTOMATA
     pointer += id;
-    console.log(pointer);
-    //VARIABLE QUE ME PERMITE VALIDAR SI EL PAGO(MONEDA O BILLETE) NO SUPERE EL PRECIO DEL PRODUCTO
-    let rejectPay = false;
+
     //VALIDO QUE EL DINERO INGRESADO POR EL USUARIO ES UN VALIDO DENTRO DE LA COLUMNA DE UN LENGUAJE
     if(validStates.includes(pointer)){ 
         var newColor = "#009BFF"
@@ -268,13 +262,65 @@ function validateTransition(id,validStates){
         }
         $("#d-acumulado").text("$"+pointer);
         if((validStates.length - 1) == validStates.indexOf(pointer)){
-            alert("Pago completado")
+            $("#leyenda").text("Pago completado");
+            $("#d-price-product").text("Presiones retirar");
+            $("#retirar").prop('disabled', false);
+            $(".pay").prop('disabled', true);
+            toastr.success("Pago completo. Presiones el boton retirar");
         }   
     }else{
-        rejectPay = true;
-    }
-    if(rejectPay){
-        alert("Rechazando Dinero porque excede el precio del producto");
+        toastr.error("Rechazando Dinero porque excede el precio del producto");
         pointer = pointer - id;
-    }   
+    } 
+}
+
+//FUNCION PARA CANCELAR EL PAGO DE UN PRODUCTO
+function cancelar(){
+    $(".disable").prop('disabled', false);
+    $("#d-price-product").text("$0");
+    $("#d-acumulado").text("$0");
+    $("#table > tbody").empty();
+    $(".pay").prop('disabled', true);
+    $("#visualization").empty();
+    $("#retirar").prop('disabled', true);
+    toastr.error("Pago de producto cancelado");
+}
+
+function retirar(){
+    
+    $("#coffee-out").animate({
+        left: '0px',
+        display: 'block',
+        right: '0px',
+        opacity: '0.9',
+        height: '170px',
+        width: '110px'
+    },700);
+    toastr.success("Sirviendo Café, Espere...");
+    setTimeout(()=>{
+        
+        $('#coffee-out').animate({
+            opacity: 0,
+            width: 180,
+            height: 250,
+            left: '100px',
+            display: 'none'
+        }, 1500);  
+    },3000);
+    setTimeout(() => {
+        $("#coffee-out").animate({
+            height: '150px',
+            width: '90px'
+        },100);
+        $(".disable").prop('disabled', false);
+        $("#d-price-product").text("$0");
+        $("#d-acumulado").text("$0");
+        $("#leyenda").text('Precio producto')
+        $("#table > tbody").empty();
+        $(".pay").prop('disabled', true);
+        $("#visualization").empty();
+        $("#retirar").prop('disabled', true);
+        toastr.success("Maquina disponible nuevamente");
+    }, 5000);
+    
 }
