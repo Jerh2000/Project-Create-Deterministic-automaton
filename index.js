@@ -204,7 +204,6 @@ function createAutomata(tableTransition){
     //METODO PARA VALIDAR LAS TRNASIONES EN EL GRAFO Y PARA MOVER EL PUNTERO DEL MISMO
     changeNode(0);
 }
-
 //FUNCION QUE PERMITE MOVERSE ENTRE LOS ESTADOS DEL AUTOMATA
 function changeNode(id) {
     //VARIABLE DEL LENGUAJE INGRESADO
@@ -273,7 +272,6 @@ function validateTransition(id,validStates){
         pointer = pointer - id;
     } 
 }
-
 //FUNCION PARA CANCELAR EL PAGO DE UN PRODUCTO
 function cancelar(){
     $(".disable").prop('disabled', false);
@@ -285,7 +283,7 @@ function cancelar(){
     $("#retirar").prop('disabled', true);
     toastr.error("Pago de producto cancelado");
 }
-
+//FUNCION PARA RETIRAR EL PRODUCTO
 function retirar(){
     
     $("#coffee-out").animate({
