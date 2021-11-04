@@ -13,6 +13,7 @@ var nodes;
 
 $(".pay").prop('disabled', true);
 $("#retirar").prop('disabled', true);
+$("#cancelar").prop('disabled', true);
 
 //EVENTO ONCLICK DE LAS MONES Y BILLETES
 $(".pay").on('click', (e)=>{
@@ -33,6 +34,7 @@ function createTable(priceProduct){
     $("#d-price-product").text("$"+priceProduct);
     $(".disable").prop('disabled', true);
     $(".pay").prop('disabled', false);
+    $("#cancelar").prop('disabled', false);
     //#ARREGLO QUE ME ALMACENA EL LENGUAJE DEL AUTOMATA
     //#ARREGLO AUXILIAR QUE ME IRA ALMACENADO LAS FILAS DE TRANSICION DE LA TABLA
     var rows  = [];
@@ -220,7 +222,6 @@ function changeNode(id) {
             if(transitions[i].l2 != "---")
             validStates.push(transitions[i].l2); 
         }
-        console.log(validStates);
         validateTransition(id,validStates);
     }
     if(lenguague == 1000){
@@ -265,6 +266,7 @@ function validateTransition(id,validStates){
             $("#d-price-product").text("Presiones retirar");
             $("#retirar").prop('disabled', false);
             $(".pay").prop('disabled', true);
+            $("#cancelar").prop('disabled', true);
             toastr.success("Pago completo. Presiones el boton retirar");
         }   
     }else{
@@ -281,6 +283,7 @@ function cancelar(){
     $(".pay").prop('disabled', true);
     $("#visualization").empty();
     $("#retirar").prop('disabled', true);
+    $("#cancelar").prop('disabled', true);
     toastr.error("Pago de producto cancelado");
 }
 //FUNCION PARA RETIRAR EL PRODUCTO
